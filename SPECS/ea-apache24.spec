@@ -17,10 +17,10 @@ Name: ea-apache24
 Version: 2.4.23
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4544 for more details
 %define release_prefix 1
-Release: %{release_prefix}%{?dist}.cpanel
+Release: %{release_prefix}%{?dist}.cpanel.http2
 Vendor: cPanel, Inc.
 URL: http://httpd.apache.org/
-Source0: http://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
+Source0: http://www.apache.org/dist/httpd/httpd-%{version}.tar.gz
 Source1: centos-noindex.tar.gz
 Source3: httpd.sysconf
 Source5: apache2.tmpfiles
@@ -1242,7 +1242,8 @@ autoheader && autoconf || exit 1
 %{__perl} -pi -e "s:\@exp_installbuilddir\@:%{_libdir}/apache2/build:g" support/apxs.in
 
 export CFLAGS=$RPM_OPT_FLAGS
-export LDFLAGS="-Wl,-z,relro,-z,now"
+export LDFLAGS="-L/opt/ssl/lib,-Wl,-z,relro,-z,now"
+export CPPFLAGS="-I/opt/ssl/include"
 
 %ifarch ppc64
 CFLAGS="$CFLAGS -O3"
@@ -1278,7 +1279,7 @@ export LYNX_PATH=/usr/bin/links
     --enable-pie \
     --with-pcre \
     --enable-mods-shared=all \
-    --enable-ssl --with-ssl \
+    --enable-ssl \
     --disable-distcache \
     --enable-proxy \
     --enable-proxy-fdpass \
@@ -1292,7 +1293,12 @@ export LYNX_PATH=/usr/bin/links
     --enable-imagemap \
     --disable-echo \
     --disable-v4-mapped \
-    $*
+    --enable-http2=static \
+	--with-nghttp2 \
+    --with-ssl=/opt/ssl \
+    
+
+	$*
 make %{?_smp_mflags}
 
 %install
