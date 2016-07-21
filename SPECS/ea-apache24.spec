@@ -65,6 +65,9 @@ Patch303: 2.2.17_cpanel_mailman_suexec.patch
 Patch304: 2.2_cpanel_fileprotect_suexec_httpusergroupallow.patch
 Patch305: httpd-2.4.12-apxs-modules-dir.patch
 
+# Symlink Protection
+Patch401: symlink-protection.patch
+
 License: ASL 2.0
 Group: System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -1214,6 +1217,8 @@ mod_watchdog hooks.
 %patch304 -p1 -b .cpsuexec3
 %patch305 -p1 -b .cpapxs
 
+%patch401 -p1 -b .harden
+
 # Patch in the vendor string and the release string
 sed -i '/^#define PLATFORM/s/Unix/%{vstring}/' os/unix/os.h
 sed -i 's/@RELEASE@/%{release}/' server/core.c
@@ -1826,6 +1831,8 @@ rm -rf $RPM_BUILD_ROOT
 
 * Mon Jun 20 2016 Dan Muey <dan@cpanel.net> - 2.4.20-4
 - EA-4383: Update Release value to OBS-proof versioning
+* Fri Jun 3 2016 Jacob Perkins <jacob.perkin@gmail.com> - 2.4.20-4
+- Added Symlink Protection Patch
 
 * Fri May 27 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 2.4.20-3
 - Updated suexec minimum uid to match EA3
