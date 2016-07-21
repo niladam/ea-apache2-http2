@@ -51,7 +51,7 @@ index 0313757..479b294 100644
  
  #define APR_WANT_IOVEC
  #define APR_WANT_STRFUNC
-@@ -4228,6 +4229,9 @@ static int default_handler(request_rec *r)
+@@ -4561,6 +4562,9 @@
      int errstatus;
      apr_file_t *fd = NULL;
      apr_status_t status;
@@ -61,7 +61,7 @@ index 0313757..479b294 100644
      /* XXX if/when somebody writes a content-md5 filter we either need to
       *     remove this support or coordinate when to use the filter vs.
       *     when to use this code
-@@ -4238,9 +4242,14 @@ static int default_handler(request_rec *r)
+@@ -4571,9 +4575,14 @@
      int bld_content_md5;
  
      d = (core_dir_config *)ap_get_core_module_config(r->per_dir_config);
@@ -77,11 +77,11 @@ index 0313757..479b294 100644
      ap_allow_standard_methods(r, MERGE_ALLOW, M_GET, M_OPTIONS, M_POST, -1);
  
      /* If filters intend to consume the request body, they must
-@@ -4310,6 +4319,66 @@ static int default_handler(request_rec *r)
+@@ -4644,6 +4653,66 @@
              return HTTP_FORBIDDEN;
          }
  
-+        /* This is where the magic is. If a user is trying to hit the apache
++       /* This is where the magic is. If a user is trying to hit the apache
 +         * symlink race condition, then we will know about it here.
 +         */
 +
