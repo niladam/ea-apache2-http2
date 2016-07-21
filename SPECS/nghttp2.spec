@@ -1,11 +1,11 @@
 Summary: Meta-package that only requires libnghttp2
 Name: nghttp2
-Version: 1.12.0
+Version: 1.13.0
 Release: 0
 License: MIT
 Group: Applications/Internet
 URL: https://nghttp2.org/
-Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.gz
+Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.bz2
 BuildRequires: openssl >= 1.0.2
 BuildRequires: zlib-devel
 
