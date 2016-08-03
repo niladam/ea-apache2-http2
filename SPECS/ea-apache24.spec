@@ -16,11 +16,11 @@ Summary: Apache HTTP Server
 Name: ea-apache24
 Version: 2.4.23
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4544 for more details
-%define release_prefix 666
+%define release_prefix 667
 Release: %{release_prefix}%{?dist}.cpanel.http2
 Vendor: cPanel, Inc.
 URL: http://httpd.apache.org/
-Source0: http://www.apache.org/dist/httpd/httpd-%{version}.tar.gz
+Source0: http://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: centos-noindex.tar.gz
 Source3: httpd.sysconf
 Source5: apache2.tmpfiles
