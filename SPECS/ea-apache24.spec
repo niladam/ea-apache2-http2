@@ -65,8 +65,12 @@ Patch303: 2.2.17_cpanel_mailman_suexec.patch
 Patch304: 2.2_cpanel_fileprotect_suexec_httpusergroupallow.patch
 Patch305: httpd-2.4.12-apxs-modules-dir.patch
 
-# Symlink Protection
-Patch401: symlink-protection.patch
+#PICK ONE OR NONE. Search for 401/402 and enable it in the patch section.
+# Symlink Protection (Bluehost)
+#Patch401: symlink-protection.patch
+
+# Symlink Protection (Rack911)
+#Patch402: harden-symlinks-2.4.patch
 
 License: ASL 2.0
 Group: System Environment/Daemons
@@ -1217,7 +1221,10 @@ mod_watchdog hooks.
 %patch304 -p1 -b .cpsuexec3
 %patch305 -p1 -b .cpapxs
 
-%patch401 -p1 -b .harden
+#%patch401 -p1 -b .harden
+
+#%patch402 -p1 -b .harden
+
 
 # Patch in the vendor string and the release string
 sed -i '/^#define PLATFORM/s/Unix/%{vstring}/' os/unix/os.h
