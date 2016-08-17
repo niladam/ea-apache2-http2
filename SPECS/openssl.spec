@@ -1,12 +1,12 @@
 %define _unpackaged_files_terminate_build 0
 
-Release: 1
+Release: 2
 
 %define openssldir /etc/pki/tls
 %define prefix /opt/ssl
 
 Summary: Secure Sockets Layer and cryptography libraries and tools
-Name: openssl
+Name: openssl-parallel
 Version: 1.0.2h
 Source0: /root/rpmbuild/SOURCES/openssl-%{version}.tar.gz
 License: OpenSSL
@@ -58,7 +58,7 @@ static libraries and header files required when developing applications.
 
 %prep
 
-%setup -q
+%setup -q -n openssl-%{version}
 
 %build 
 
@@ -102,10 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{openssldir}/misc/*
 #%attr(0644,root,root) /usr/man/man[157]/*
 
-%config(noreplace) %{openssldir}/openssl.cnf 
+#%config(noreplace) %{openssldir}/openssl.cnf 
 %dir %attr(0755,root,root) %{openssldir}/certs
 %dir %attr(0755,root,root) %{openssldir}/misc
-%dir %attr(0750,root,root) %{openssldir}/private
+#%dir %attr(0750,root,root) %{openssldir}/private
 
 %files devel
 %defattr(0644,root,root,0755)
@@ -118,8 +118,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %post
+echo %{prefix}/lib >> /etc/ld.so.conf.d/openssl.conf
 ldconfig
 
 %postun
+sed '%{prefix}/lib' /etc/ld.so.conf.d/openssl.conf
 ldconfig
 
