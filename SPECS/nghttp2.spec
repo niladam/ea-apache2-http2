@@ -1,6 +1,6 @@
 Summary: Meta-package that only requires libnghttp2
 Name: nghttp2
-Version: 1.14.1
+Version: 1.15.0
 Release: 0
 License: MIT
 Group: Applications/Internet
